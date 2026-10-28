@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { cn } from '@/lib/utils';
 import MagneticButton from '@/components/common/MagneticButton';
+import SectionHeader from '@/components/common/SectionHeader';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,17 +50,15 @@ export default function Gallery() {
             : transformations.filter(item => item.tags.includes(activeFilter));
 
     return (
-        <section className="py-20 px-[clamp(16px,5vw,80px)]">
+        <section className="py-16 md:py-24 px-[clamp(16px,5vw,80px)]">
             <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-20">
-                    <div className="flex flex-col gap-6">
-                        <div className="glass px-4 py-1 rounded-full text-[12px] tracking-[0.15em] font-sans text-muted border-white/10 uppercase self-start">
-                            TRANSFORMATION
-                        </div>
-                        <h2 className="text-section leading-none">
-                            REAL RESULTS.<br />REAL PEOPLE.
-                        </h2>
-                    </div>
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 md:gap-12 mb-12 md:mb-20">
+                    <SectionHeader
+                        label="TRANSFORMATION"
+                        heading={"REAL RESULTS.\nREAL PEOPLE."}
+                        accentWord="REAL PEOPLE."
+                        animationClass="your-anim-class"
+                    />
 
                     <div className="flex flex-wrap gap-3">
                         {filters.map(filter => (
@@ -67,7 +66,7 @@ export default function Gallery() {
                                 key={filter}
                                 onClick={() => setActiveFilter(filter)}
                                 className={cn(
-                                    "px-8 py-3 rounded-full font-display text-sm tracking-widest transition-all",
+                                    "px-5 md:px-8 py-2 md:py-3 rounded-full font-display text-sm tracking-widest transition-all",
                                     activeFilter === filter
                                         ? "bg-accent text-black"
                                         : "glass text-white hover:bg-white/10"
@@ -79,13 +78,13 @@ export default function Gallery() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                     {filteredItems.map(item => (
                         <ComparisonCard key={`${activeFilter}-${item.name}`} {...item} />
                     ))}
                 </div>
 
-                <div className="mt-20 flex justify-center">
+                <div className="mt-12 md:mt-20 flex justify-center">
                     <MagneticButton> LOAD MORE RESULTS </MagneticButton>
                 </div>
             </div>
@@ -189,7 +188,7 @@ function ComparisonCard({
     return (
         <div
             ref={cardRef}
-            className="relative rounded-3xl overflow-hidden aspect-video group select-none"
+            className="relative rounded-lg md:rounded-3xl overflow-hidden aspect-11/9 md:aspect-video group select-none"
             onMouseMove={isDragging ? handleMove : undefined}
             onTouchMove={handleMove}
             onMouseDown={handleStart}
@@ -254,8 +253,8 @@ function ComparisonCard({
 
             {/* Info Overlay */}
             <div className="absolute bottom-0 left-0 right-0 p-8 pt-12 bg-linear-to-t from-bg via-bg/40 to-transparent pointer-events-none">
-                <h3 className="font-display text-2xl text-white uppercase">{name}</h3>
-                <span className="font-sans text-sm text-accent tracking-[0.2em]">
+                <h3 className="font-display text-xl md:text-2xl text-white uppercase">{name}</h3>
+                <span className="font-sans text-xs md:text-sm text-accent md:tracking-[0.2em]">
                     {duration} PROGRESS
                 </span>
             </div>

@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight } from 'lucide-react';
+import SectionHeader from '@/components/common/SectionHeader';
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -56,58 +57,63 @@ export default function Tips() {
     const others = articles.filter(a => !a.featured);
 
     useEffect(() => {
-        if (featuredRef.current) {
-            gsap.fromTo(
-                featuredRef.current,
-                { opacity: 0, y: 40 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: featuredRef.current,
-                        start: 'top 80%'
-                    }
-                }
-            );
-        }
+        const featured = featuredRef.current;
+        const cards = cardsRef.current;
 
-        if (cardsRef.current) {
-            gsap.fromTo(
-                cardsRef.current.children,
-                { opacity: 0, y: 30 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.6,
-                    stagger: 0.12,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: cardsRef.current,
-                        start: 'top 80%'
+        const timer = setTimeout(() => {
+            if (featured) {
+                gsap.fromTo(
+                    featured,
+                    { opacity: 0, y: 40 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: featured,
+                            start: 'top 80%',
+                            once: true,
+                        },
                     }
-                }
-            );
-        }
+                );
+            }
+
+            if (cards) {
+                gsap.fromTo(
+                    Array.from(cards.children),
+                    { opacity: 0, y: 30 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.6,
+                        stagger: 0.12,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: cards,
+                            start: 'top 80%',
+                            once: true,
+                        },
+                    }
+                );
+            }
+
+            ScrollTrigger.refresh();
+        }, 100);
+
+        return () => clearTimeout(timer);
     }, []);
 
     return (
         <section id="blog" className="py-20 px-[clamp(16px,5vw,80px)] bg-surface overflow-hidden">
             <div className="max-w-7xl mx-auto">
-                <div className="flex items-end justify-between mb-20">
-                    <h2 className="text-section leading-none">
-                        TRAINING<br />
-                        <span className="text-muted">TIPS.</span>
-                    </h2>
-
-                    <a
-                        href="#"
-                        className="hidden md:flex items-center gap-2 text-accent uppercase font-display text-xl group"
-                    >
-                        VIEW ALL ARTICLES
-                        <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </a>
+                <div className="flex items-end justify-between mb-16">
+                    <SectionHeader
+                        label="EXPERT INSIGHTS"
+                        heading={"TRAINING\nTIPS."}
+                        accentWord="TIPS."
+                        animationClass="your-anim-class"
+                    />
                 </div>
 
                 {/* Featured */}

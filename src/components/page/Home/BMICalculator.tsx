@@ -12,7 +12,7 @@ type Unit = 'metric' | 'imperial';
 
 const bmiScale = [
     { label: 'UNDER', range: '< 18.5', color: '#3b82f6', width: '18%' },
-    { label: 'NORMAL', range: '18.5–24.9', color: '#C8FF00', width: '22%' },
+    { label: 'NORMAL', range: '18.5–24.9', color: '#EA2B7B', width: '22%' },
     { label: 'OVER', range: '25–29.9', color: '#eab308', width: '20%' },
     { label: 'OBESE', range: '≥ 30', color: '#ef4444', width: '40%' },
 ];
@@ -194,7 +194,7 @@ export default function BMICalculator() {
                                             'px-6 py-2.5 font-display text-sm tracking-widest transition-all duration-300',
                                             unit === u
                                                 ? 'bg-accent text-black'
-                                                : 'text-muted hover:text-white'
+                                                : 'text-white/50 hover:text-white'
                                         )}
                                     >
                                         {u === 'metric' ? 'METRIC' : 'IMPERIAL'}
@@ -206,7 +206,7 @@ export default function BMICalculator() {
                             <div className="grid grid-cols-2 gap-6">
                                 {unit === 'metric' ? (
                                     <div className="bmi-right-content space-y-2">
-                                        <label className="text-[11px] uppercase tracking-widest text-muted">
+                                        <label className="text-[11px] uppercase tracking-widest text-white/50">
                                             HEIGHT (CM)
                                         </label>
                                         <input
@@ -219,7 +219,7 @@ export default function BMICalculator() {
                                 ) : (
                                     <>
                                         <div className="bmi-right-content space-y-2">
-                                            <label className="text-[11px] uppercase tracking-widest text-muted">
+                                            <label className="text-[11px] uppercase tracking-widest text-white/50">
                                                 HEIGHT (FT)
                                             </label>
                                             <input
@@ -230,7 +230,7 @@ export default function BMICalculator() {
                                             />
                                         </div>
                                         <div className="bmi-right-content space-y-2">
-                                            <label className="text-[11px] uppercase tracking-widest text-muted">
+                                            <label className="text-[11px] uppercase tracking-widest text-white/50">
                                                 HEIGHT (IN)
                                             </label>
                                             <input
@@ -244,7 +244,7 @@ export default function BMICalculator() {
                                 )}
 
                                 <div className={cn("bmi-right-content space-y-2", unit === 'imperial' && 'col-span-2')}>
-                                    <label className="text-[11px] uppercase tracking-widest text-muted">
+                                    <label className="text-[11px] uppercase tracking-widest text-white/50">
                                         WEIGHT ({unit === 'metric' ? 'KG' : 'LBS'})
                                     </label>
                                     <input
@@ -294,8 +294,8 @@ export default function BMICalculator() {
                             {/* Placeholder when no result */}
                             {!result && (
                                 <div className="rounded-2xl p-6 glass border border-white/5 flex flex-col items-center justify-center min-h-55 gap-3 opacity-30">
-                                    <span className="font-display text-7xl leading-none text-muted">--.-</span>
-                                    <span className="font-display text-xl tracking-widest text-muted">BMI RESULT</span>
+                                    <span className="font-display text-7xl leading-none text-white/50">--.-</span>
+                                    <span className="font-display text-xl tracking-widest text-white/50">BMI RESULT</span>
                                 </div>
                             )}
                         </div>

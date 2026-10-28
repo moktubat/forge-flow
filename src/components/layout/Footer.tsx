@@ -41,7 +41,7 @@ export default function Footer() {
                             <div className="w-2.5 h-2.5 rounded-full bg-accent mt-1.5 animate-pulse" />
                         </div>
 
-                        <p className="text-muted font-sans text-lg max-w-sm">
+                        <p className="text-white/60 font-sans text-lg max-w-sm">
                             We are the premier destination for serious athletes and dedicated fitness enthusiasts. Forge your destiny with us.
                         </p>
 
@@ -49,7 +49,7 @@ export default function Footer() {
                             {icons.map((Icon, i) => (
                                 <button
                                     key={i}
-                                    className="w-12 h-12 rounded-full bg-surface-2 flex items-center justify-center text-muted hover:bg-accent hover:text-black transition-all duration-300"
+                                    className="w-12 h-12 rounded-full bg-surface-2 flex items-center justify-center text-white/50 hover:bg-accent hover:text-black transition-all duration-300"
                                 >
                                     <Icon className="w-5 h-5" />
                                 </button>
@@ -59,7 +59,7 @@ export default function Footer() {
 
                     {/* Links */}
                     <div className="md:col-span-2 flex flex-col gap-8">
-                        <h4 className="text-[11px] uppercase tracking-[0.2em] text-muted font-medium">
+                        <h4 className="text-[11px] uppercase tracking-[0.2em] text-white/50 font-medium">
                             EXPLORE
                         </h4>
                         <div className="flex flex-col gap-4">
@@ -67,7 +67,7 @@ export default function Footer() {
                                 <a
                                     key={link}
                                     href="#"
-                                    className="font-sans text-sm text-muted hover:text-white transition-colors uppercase tracking-widest"
+                                    className="font-sans text-sm text-white/50 hover:text-white transition-colors uppercase tracking-widest"
                                 >
                                     {link}
                                 </a>
@@ -76,7 +76,7 @@ export default function Footer() {
                     </div>
 
                     <div className="md:col-span-2 flex flex-col gap-8">
-                        <h4 className="text-[11px] uppercase tracking-[0.2em] text-muted font-medium">
+                        <h4 className="text-[11px] uppercase tracking-[0.2em] text-white/50 font-medium">
                             SUPPORT
                         </h4>
                         <div className="flex flex-col gap-4">
@@ -84,7 +84,7 @@ export default function Footer() {
                                 <a
                                     key={link}
                                     href="#"
-                                    className="font-sans text-sm text-muted hover:text-white transition-colors uppercase tracking-widest"
+                                    className="font-sans text-sm text-white/50 hover:text-white transition-colors uppercase tracking-widest"
                                 >
                                     {link}
                                 </a>
@@ -94,11 +94,11 @@ export default function Footer() {
 
                     {/* Newsletter */}
                     <div className="md:col-span-3 flex flex-col gap-8">
-                        <h4 className="text-[11px] uppercase tracking-[0.2em] text-muted font-medium">
+                        <h4 className="text-[11px] uppercase tracking-[0.2em] text-white/50 font-medium">
                             STAY IN SHAPE
                         </h4>
 
-                        <p className="text-muted font-sans text-sm">
+                        <p className="text-white/60 font-sans text-sm">
                             Join our mailing list for elite training tips and exclusive offers.
                         </p>
 
@@ -117,10 +117,10 @@ export default function Footer() {
 
                 {/* Bottom */}
                 <div className="pt-12 border-t border-border flex flex-col md:flex-row items-center justify-between gap-6">
-                    <span className="font-sans text-[12px] text-muted/60 uppercase tracking-widest">
+                    <span className="font-sans text-[12px] text-white/60 uppercase tracking-widest">
                         © 2026 GYMFORGE. ALL RIGHTS RESERVED.
                     </span>
-                    <span className="font-sans text-[12px] text-muted/60 uppercase tracking-widest italic">
+                    <span className="font-sans text-[12px] text-white/60 uppercase tracking-widest italic">
                         BUILT FOR PERFORMANCE.
                     </span>
                 </div>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Quote, ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import SectionHeader from '@/components/common/SectionHeader';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -137,21 +138,19 @@ export default function Testimonials() {
     return (
         <section
             ref={sectionRef}
-            className="testimonial-section bg-surface py-20 px-[clamp(16px,5vw,80px)] overflow-hidden relative"
+            className="testimonial-section bg-surface py-16 md:py-24 px-[clamp(16px,5vw,80px)] overflow-hidden relative"
         >
             {/* Background glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-accent/5 blur-[140px] rounded-full pointer-events-none" />
 
             {/* Header */}
             <div className="max-w-7xl mx-auto text-center mb-16">
-                <div className="testimonial-header glass px-4 py-1 rounded-full text-[12px] tracking-[0.15em] font-sans text-muted border-white/10 uppercase inline-flex mb-6">
-                    TESTIMONIALS
-                </div>
-                <h2 className="testimonial-header text-section leading-none">
-                    WHAT MEMBERS
-                    <br />
-                    <span className="text-muted">SAY.</span>
-                </h2>
+                <SectionHeader
+                    label="TESTIMONIALS"
+                    heading={"WHAT\nMEMBERS SAY."}
+                    accentWord="SAY."
+                    animationClass="your-anim-class"
+                />
             </div>
 
             {/* Card */}

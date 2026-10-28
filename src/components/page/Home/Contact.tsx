@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CheckCircle2, MapPin, Phone } from 'lucide-react';
 import MagneticButton from '@/components/common/MagneticButton';
+import SectionHeader from '@/components/common/SectionHeader';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,51 +35,73 @@ export default function Contact() {
         setTimeout(() => setFormSent(false), 3000);
     };
 
+    // Form reveal
     useEffect(() => {
         if (!formRef.current) return;
+        const form = formRef.current;
 
-        gsap.from(formRef.current, {
-            opacity: 0,
-            y: 40,
-            duration: 0.8,
-            ease: 'power3.out',
-            scrollTrigger: {
-                trigger: formRef.current,
-                start: 'top 80%'
-            }
-        });
+        const timer = setTimeout(() => {
+            gsap.from(form, {
+                opacity: 0,
+                y: 40,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: form,
+                    start: 'top 80%',
+                    once: true,
+                },
+            });
+            ScrollTrigger.refresh();
+        }, 100);
+
+        return () => clearTimeout(timer);
     }, []);
 
+    // Locations reveal
     useEffect(() => {
         if (!locationsRef.current) return;
+        const locations = locationsRef.current;
 
-        gsap.from(locationsRef.current.children, {
-            opacity: 0,
-            y: 20,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: 'power3.out',
-            scrollTrigger: {
-                trigger: locationsRef.current,
-                start: 'top 85%'
-            }
-        });
+        const timer = setTimeout(() => {
+            gsap.from(Array.from(locations.children), {
+                opacity: 0,
+                y: 20,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: locations,
+                    start: 'top 85%',
+                    once: true,
+                },
+            });
+        }, 100);
+
+        return () => clearTimeout(timer);
     }, []);
 
+    // Markers reveal
     useEffect(() => {
         if (!markersRef.current.length) return;
+        const section = sectionRef.current;
 
-        gsap.from(markersRef.current, {
-            scale: 0,
-            opacity: 0,
-            stagger: 0.2,
-            duration: 0.6,
-            ease: 'back.out(2)',
-            scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 70%'
-            }
-        });
+        const timer = setTimeout(() => {
+            gsap.from(markersRef.current, {
+                scale: 0,
+                opacity: 0,
+                stagger: 0.2,
+                duration: 0.6,
+                ease: 'back.out(2)',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 70%',
+                    once: true,
+                },
+            });
+        }, 100);
+
+        return () => clearTimeout(timer);
     }, []);
 
     return (
@@ -88,14 +111,19 @@ export default function Contact() {
 
                     {/* LEFT */}
                     <div className="lg:col-span-5 flex flex-col gap-12">
-                        <h2 className="text-section text-white">FIND US.</h2>
+                        <SectionHeader
+                            label="OUR LOCATION"
+                            heading="FIND US."
+                            accentWord="US."
+                            animationClass="your-anim-class"
+                        />
 
                         <div className="flex flex-col gap-10 w-full">
                             <div>
                                 <h4 className="flex items-center gap-3 font-display text-xl text-accent">
                                     <MapPin className="w-5 h-5" /> LOCATION
                                 </h4>
-                                <p className="text-muted mt-2">
+                                <p className="text-white/50 mt-2">
                                     123 High-Performance Way,<br />Manhattan, New York 10001
                                 </p>
                             </div>
@@ -104,7 +132,7 @@ export default function Contact() {
                                 <h4 className="flex items-center gap-3 font-display text-xl text-accent">
                                     <Phone className="w-5 h-5" /> CONTACT
                                 </h4>
-                                <div className="flex flex-col text-muted mt-2">
+                                <div className="flex flex-col text-white/50 mt-2">
                                     <a href="tel:+1234567890" className="hover:text-accent">+1 (234) 567-890</a>
                                     <a href="mailto:hello@gymforge.com" className="hover:text-accent">hello@gymforge.com</a>
                                 </div>
@@ -112,7 +140,7 @@ export default function Contact() {
 
                             <div>
                                 <h4 className="font-display text-xl text-accent">OPERATING HOURS</h4>
-                                <div className="grid grid-cols-2 gap-4 text-muted mt-2">
+                                <div className="grid grid-cols-2 gap-4 text-white/50 mt-2">
                                     <div>
                                         <span>MON - FRI</span>
                                         <div className="text-white">05:00 - 23:00</div>
@@ -253,7 +281,7 @@ export default function Contact() {
                                 className="glass p-8 rounded-2xl hover:bg-white/5 transition"
                             >
                                 <h5 className="text-white font-display text-xl">{loc.name}</h5>
-                                <p className="text-muted text-sm">{loc.address}</p>
+                                <p className="text-white/50 text-sm">{loc.address}</p>
                                 <span className="text-accent text-[11px] mt-2 block">{loc.hours}</span>
                             </div>
                         ))}

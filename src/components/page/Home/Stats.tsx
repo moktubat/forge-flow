@@ -14,8 +14,8 @@ const stats = [
 
 export default function Stats() {
     return (
-        <section className="bg-surface py-20 border-y border-border overflow-hidden">
-            <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-border">
+        <section className="bg-surface px-4 py-8 md:py-20 border-y border-border overflow-hidden">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 gap-8 divide-y divide-border md:grid-cols-4 md:divide-y-0 md:divide-x">
                 {stats.map((stat, i) => (
                     <StatBlock
                         key={i}
@@ -110,18 +110,18 @@ function StatBlock({
     return (
         <div
             ref={ref}
-            className="px-8 flex flex-col items-center md:items-start text-center md:text-left gap-2 group"
+            className="px-8 pb-8 md:pb-0 flex flex-col items-center md:items-start text-center md:text-left gap-2 group"
         >
             {/* Accent Line */}
             <div
                 ref={lineRef}
-                className="h-0.5 w-0 bg-accent mb-2"
+                className="hidden md:block h-0.5 w-0 bg-accent mb-2"
             />
 
             {/* Number */}
             <span
                 ref={numberRef}
-                className="font-display text-7xl md:text-8xl text-accent leading-none opacity-0"
+                className="font-display text-6xl md:text-8xl text-accent leading-none opacity-0"
             >
                 {number}
             </span>
@@ -129,7 +129,7 @@ function StatBlock({
             {/* Label */}
             <span
                 ref={labelRef}
-                className="font-sans text-sm tracking-widest uppercase text-muted font-medium opacity-0"
+                className="font-sans text-sm md:text-base tracking-widest uppercase text-white/50 font-medium opacity-0"
             >
                 {label}
             </span>

@@ -71,7 +71,7 @@ export default function MagneticButton({
             onMouseLeave={handleMouseLeave}
             onClick={onClick}
             className={cn(
-                'relative rounded-full bg-accent text-black font-display text-lg px-8 py-3 active:scale-95 cursor-none will-change-transform',
+                'relative rounded-full bg-accent text-black font-display text-base md:text-lg px-5 md:px-8 py-2 md:py-3 active:scale-95 cursor-none will-change-transform',
                 className
             )}
         >

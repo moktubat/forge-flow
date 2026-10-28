@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import MagneticButton from '@/components/common/MagneticButton';
+import SectionHeader from '@/components/common/SectionHeader';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -150,17 +151,19 @@ export default function Membership() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="py-20 bg-surface overflow-hidden">
+        <section ref={sectionRef} className="py-16 md:py-24 bg-surface overflow-hidden">
             <div className="px-[clamp(16px,5vw,80px)]">
                 <div className="relative z-10 max-w-7xl mx-auto">
 
                     {/* Header */}
-                    <div className="text-center mb-24 space-y-6">
-                        <h2 className="membership-header text-section leading-none">
-                            SIMPLE PRICING.
-                            <br />
-                            <span className="text-muted">SERIOUS GAINS.</span>
-                        </h2>
+                    <div className="text-center mb-8 md:mb-16 space-y-8 md:space-y-12">
+                        <SectionHeader
+                            label="PRICING"
+                            heading={"SIMPLE PRICING.\nSERIOUS GAINS."}
+                            accentWord="SERIOUS GAINS."
+                            animationClass="your-anim-class"
+                            align="center"
+                        />
 
                         {/* Toggle */}
                         <div className="membership-header flex items-center justify-center gap-4">
@@ -202,7 +205,7 @@ export default function Membership() {
                                 key={i}
                                 data-featured={plan.featured}
                                 className={cn(
-                                    'plan-card relative p-10 rounded-4xl border flex flex-col gap-10 overflow-visible',
+                                    'plan-card relative p-6 md:p-10 rounded-4xl border flex flex-col gap-6 md:gap-10 overflow-visible',
                                     plan.featured
                                         ? 'bg-accent text-black border-accent scale-105 z-20'
                                         : 'bg-surface border-border'
@@ -217,14 +220,14 @@ export default function Membership() {
 
                                 {/* Title + Price */}
                                 <div className="membership-header flex flex-col gap-2">
-                                    <h3 className="font-display text-3xl uppercase">
+                                    <h3 className="font-display text-2xl md:text-3xl uppercase">
                                         {plan.name}
                                     </h3>
 
                                     <div className="flex items-end gap-1 overflow-hidden">
                                         <span
                                             ref={el => { priceRefs.current[i] = el; }}
-                                            className="font-display text-7xl leading-none"
+                                            className="font-display text-5xl md:text-7xl leading-none"
                                         >
                                             ${isAnnual ? plan.annualPrice : plan.monthlyPrice}
                                         </span>
@@ -246,9 +249,9 @@ export default function Membership() {
                                 </div>
 
                                 {/* Features */}
-                                <div className="space-y-4">
+                                <div className="space-y-2 md:space-y-4">
                                     {plan.features.map((feature, idx) => (
-                                        <div key={idx} className="flex items-start gap-3">
+                                        <div key={idx} className="flex items-start gap-2 md:gap-3">
                                             <Check className={cn(
                                                 'w-5 h-5 shrink-0 mt-0.5',
                                                 plan.featured ? 'text-black' : 'text-accent'
@@ -263,7 +266,7 @@ export default function Membership() {
                                 {/* CTA */}
                                 <MagneticButton
                                     className={cn(
-                                        'w-full py-5 text-xl font-bold mt-auto',
+                                        'w-full py-3 md:py-5 text-xl font-bold mt-auto',
                                         plan.featured ? 'bg-black text-white' : 'bg-accent text-black'
                                     )}
                                 >

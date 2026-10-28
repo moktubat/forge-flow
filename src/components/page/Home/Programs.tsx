@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
 import MagneticButton from '@/components/common/MagneticButton';
+import SectionHeader from '@/components/common/SectionHeader';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,13 +43,13 @@ export default function Programs() {
 
         const section = sectionRef.current;
 
-        // Defer until after paint so ScrollTrigger is fully ready
         const timer = setTimeout(() => {
             const cards = section.querySelectorAll<HTMLElement>('.program-card');
             const gridEl = section.querySelector<HTMLElement>('.programs-grid');
 
+            // --- Scroll-triggered entrance animations ---
             const headerAnim = gsap.from(
-                section.querySelectorAll('.programs-header'),
+                section.querySelectorAll('.section-header-item'),
                 {
                     opacity: 0,
                     y: 40,
@@ -82,36 +83,96 @@ export default function Programs() {
             const cleanups: (() => void)[] = [];
 
             cards.forEach((card) => {
-                const image = card.querySelector<HTMLElement>('.program-image')!;
-                const content = card.querySelector<HTMLElement>('.program-content')!;
-                const desc = card.querySelector<HTMLElement>('.program-desc')!;
-                const explore = card.querySelector<HTMLElement>('.program-explore')!;
+                const image = card.querySelector<HTMLElement>(".program-image")!;
+                const content = card.querySelector<HTMLElement>(".program-content")!;
+                const desc = card.querySelector<HTMLElement>(".program-desc")!;
+                const explore = card.querySelector<HTMLElement>(".program-explore")!;
 
-                const enter = () => {
-                    gsap.to(image, { scale: 1.1, duration: 0.8, ease: 'power3.out' });
-                    gsap.to(content, { y: -30, duration: 0.5, ease: 'power3.out' });
-                    gsap.to(desc, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' });
-                    gsap.to(explore, { opacity: 1, y: 0, duration: 0.5, delay: 0.1, ease: 'power3.out' });
-                };
+                gsap.set(image, { scale: 1 });
+                gsap.set(content, { y: 0 });
 
-                const leave = () => {
-                    gsap.to(image, { scale: 1, duration: 0.8, ease: 'power3.out' });
-                    gsap.to(content, { y: 0, duration: 0.5, ease: 'power3.out' });
-                    gsap.to(desc, { y: 80, opacity: 0, duration: 0.4, ease: 'power3.out' });
-                    gsap.to(explore, { opacity: 0, y: 20, duration: 0.3, ease: 'power3.out' });
-                };
+                gsap.set(desc, {
+                    opacity: 0,
+                    y: 30,
+                    visibility: "hidden",
+                });
 
-                card.addEventListener('mouseenter', enter);
-                card.addEventListener('mouseleave', leave);
+                gsap.set(explore, {
+                    opacity: 0,
+                    y: 16,
+                    visibility: "hidden",
+                });
+
+                const tl = gsap.timeline({
+                    paused: true,
+                    defaults: {
+                        ease: "power3.out",
+                    },
+                });
+
+                tl.add(() => {
+                    gsap.set(desc, { visibility: "visible" });
+                    gsap.set(explore, { visibility: "visible" });
+                })
+
+                    .to(
+                        image,
+                        {
+                            scale: 1.08,
+                            duration: 0.8,
+                        },
+                        0
+                    )
+
+                    .to(
+                        content,
+                        {
+                            y: -24,
+                            duration: 0.45,
+                        },
+                        0
+                    )
+
+                    .to(
+                        desc,
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.35,
+                        },
+                        0.05
+                    )
+
+                    .to(
+                        explore,
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.3,
+                        },
+                        0.12
+                    );
+
+                tl.eventCallback("onReverseComplete", () => {
+                    gsap.set(desc, { visibility: "hidden" });
+                    gsap.set(explore, { visibility: "hidden" });
+                });
+
+                const enter = () => tl.play();
+                const leave = () => tl.reverse();
+
+                card.addEventListener("mouseenter", enter);
+                card.addEventListener("mouseleave", leave);
+
                 cleanups.push(() => {
-                    card.removeEventListener('mouseenter', enter);
-                    card.removeEventListener('mouseleave', leave);
+                    card.removeEventListener("mouseenter", enter);
+                    card.removeEventListener("mouseleave", leave);
+                    tl.kill();
                 });
             });
 
             ScrollTrigger.refresh();
 
-            // Store for cleanup
             (section as any)._gsapCleanup = () => {
                 headerAnim.scrollTrigger?.kill();
                 headerAnim.kill();
@@ -119,7 +180,7 @@ export default function Programs() {
                 cardAnim.kill();
                 cleanups.forEach(fn => fn());
             };
-        }, 100); // wait for layout to settle
+        }, 100);
 
         return () => {
             clearTimeout(timer);
@@ -131,24 +192,19 @@ export default function Programs() {
         <section
             ref={sectionRef}
             id="programs"
-            className="py-32 max-w-7xl mx-auto overflow-hidden"
+            className="py-16 md:py-32 max-w-7xl mx-auto overflow-hidden px-4 md:px-0"
         >
             {/* Header */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-16 items-end">
-                <div className="md:col-span-6 flex flex-col gap-6">
-                    <div className="programs-header glass px-4 py-1 rounded-full text-[12px] tracking-[0.15em] font-sans text-muted border-white/10 self-start">
-                        OUR PROGRAMS
-                    </div>
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 md:gap-12 mb-20">
+                <SectionHeader
+                    label="OUR PROGRAMS"
+                    heading={"TRAIN WITH\nPURPOSE."}
+                    accentWord="PURPOSE."
+                    animationClass="section-header-item"
+                />
 
-                    <h2 className="programs-header text-section leading-none">
-                        TRAIN WITH
-                        <br />
-                        <span className="text-muted">PURPOSE.</span>
-                    </h2>
-                </div>
-
-                <div className="md:col-span-6 md:pb-2">
-                    <p className="programs-header text-muted font-sans text-lg max-w-sm mb-6">
+                <div>
+                    <p className="section-header-item text-white/60 font-sans text-base base:text-lg max-w-sm mb-4 md:mb-6">
                         Scientific training methodologies meet elite coaching
                         to deliver undeniable results.
                     </p>
@@ -163,7 +219,7 @@ export default function Programs() {
                 {programs.map((program, i) => (
                     <div
                         key={i}
-                        className="program-card group relative h-130 rounded-3xl overflow-hidden cursor-none"
+                        className="program-card group relative h-100 md:h-130 rounded-xl md:rounded-3xl overflow-hidden cursor-none"
                     >
                         {/* Image */}
                         <img
@@ -173,36 +229,38 @@ export default function Programs() {
                             referrerPolicy="no-referrer"
                         />
 
-                        {/* Overlay */}
-                        <div className="absolute inset-0 bg-linear-to-t from-bg/95 via-transparent to-transparent opacity-80" />
+                        {/* Overlay — slightly stronger gradient so text always reads */}
+                        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
 
                         {/* Category */}
-                        <div className="absolute top-6 left-6 glass px-3 py-1 rounded-full text-[11px] tracking-widest font-sans uppercase">
+                        <div className="absolute top-6 left-6 glass px-3 py-1 rounded-full text-[11px] tracking-widest font-sans uppercase text-white/80">
                             {program.category}
                         </div>
 
                         {/* Content */}
-                        <div className="program-content absolute bottom-8 left-8 right-8">
-                            <h3 className="text-4xl text-white leading-[0.9] mb-3">
+                        <div className="program-content absolute bottom-12 left-8 right-8">
+                            <h3 className="text-4xl text-white leading-[0.9] mb-2">
                                 {program.title}
                             </h3>
 
-                            <p className="text-muted text-sm font-sans tracking-wide mb-6">
+                            <p className="text-white/50 text-sm font-sans tracking-widest mb-4">
                                 {program.duration}
                             </p>
 
-                            <div className="overflow-hidden">
-                                <p className="program-desc text-white/80 font-sans text-sm opacity-0 translate-y-20">
-                                    {program.description}
-                                </p>
-                            </div>
+                            <p
+                                className="program-desc text-white/60 font-sans text-sm leading-relaxed"
+                                style={{ opacity: 0, transform: 'translateY(30px)', visibility: 'hidden' }}
+                            >
+                                {program.description}
+                            </p>
                         </div>
 
-                        {/* CTA */}
-                        <div className="program-explore absolute bottom-8 left-8 opacity-0 translate-y-5">
+                        <div
+                            className="program-explore absolute bottom-8 left-8"
+                            style={{ opacity: 0, transform: 'translateY(16px)', visibility: 'hidden' }}
+                        >
                             <span className="text-accent uppercase font-display text-lg flex items-center gap-2">
                                 EXPLORE PROGRAM
-
                                 <ArrowRight className="w-4 h-4" />
                             </span>
                         </div>

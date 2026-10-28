@@ -174,7 +174,7 @@ export default function Hero() {
 
             {/* Left Sidebar */}
             <div className="hidden lg:flex absolute left-8 top-1/2 -translate-y-1/2 flex-col items-center gap-12">
-                <span className="font-sans text-[11px] tracking-[0.3em] uppercase text-muted -rotate-90">
+                <span className="font-sans text-[11px] tracking-[0.3em] uppercase text-white/50 -rotate-90">
                     ABOUT
                 </span>
 
@@ -182,7 +182,7 @@ export default function Hero() {
                     {sidebarIcons.map((item, i) => (
                         <button
                             key={i}
-                            className="sidebar-btn w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted hover:text-accent transition-colors"
+                            className="sidebar-btn w-10 h-10 rounded-full border border-border flex items-center justify-center text-white/50 hover:text-accent transition-colors"
                         >
                             {item.icon}
                         </button>
@@ -196,7 +196,7 @@ export default function Hero() {
                 {/* Main Content */}
                 <div className="flex flex-col gap-4">
                     <div className="w-full">
-                        <div className="hero-badge glass inline-flex px-4 py-1.5 rounded-full text-[12px] tracking-[0.15em] font-sans text-muted border-white/10">
+                        <div className="hero-badge glass inline-flex px-4 py-1.5 rounded-full text-[10px] md:text-[12px] tracking-[0.15em] font-sans text-white/50 border-white/10">
                             EST. 2020 · CERTIFIED TRAINERS
                         </div>
                     </div>
@@ -207,16 +207,16 @@ export default function Hero() {
                             <h1 className="hero-line text-display">EXCEPTIONAL</h1>
                         </div>
 
-                        <div className="w-full flex justify-between items-end">
+                        <div className="w-full flex flex-col md:flex-row justify-between md:items-end">
                             <div>
                                 <div className="flex items-center gap-4 flex-wrap">
-                                    <MagneticButton className="px-10 py-5 text-xl flex items-center gap-3">
+                                    <MagneticButton className="px-10 py-5 text-xl flex items-center gap-3 mt-4 md:mt-0">
                                         JOIN NOW
                                         <ArrowRight className="w-5 h-5 group-hover:-rotate-45deg transition-transform" />
                                     </MagneticButton>
 
                                     <div className="overflow-hidden">
-                                        <h1 className="hero-line text-display text-muted">FITNESS</h1>
+                                        <h1 className="hero-line text-display text-accent">FITNESS</h1>
                                     </div>
                                 </div>
 
@@ -225,11 +225,11 @@ export default function Hero() {
                                 </div>
                             </div>
                             {/* Feature Icons */}
-                            <div className="grid grid-cols-3 gap-4 overflow-visible">
+                            <div className="grid grid-cols-3 gap-4 overflow-visible mt-4 md:mt-0">
                                 {featureIcons.map((item, i) => (
                                     <div
                                         key={i}
-                                        className="feature-icon w-20 h-20 rounded-full border border-border flex items-center justify-center text-accent cursor-pointer glass"
+                                        className="feature-icon w-16 h-16 md:w-20 md:h-20 rounded-full border border-border flex items-center justify-center text-accent cursor-pointer glass"
                                     >
                                         {item.icon}
                                     </div>
@@ -238,14 +238,14 @@ export default function Hero() {
                         </div>
                     </div>
 
-                    <p className="hero-text text-xl text-muted font-sans max-w-lg mt-4">
+                    <p className="hero-text text-lg md:text-xl text-white/60 font-sans max-w-lg mt-4">
                         Forge your legacy with elite world-class training and a community
                         that pushes boundaries.
                     </p>
 
-                    <div className="mt-8 grid grid-cols-3 gap-4 w-full">
+                    <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
 
-                        <div className="col-span-2 grid grid-cols-2 gap-4">
+                        <div className="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
 
                             {/* Card 1 */}
                             <div className="hero-card image-card relative h-64 overflow-hidden group border border-white/5 rounded-3xl">

@@ -81,19 +81,29 @@ export default function CustomCursor() {
         const cursor = cursorRef.current;
         if (!cursor) return;
 
-        gsap.to(cursor, {
-            width: isHovering ? 44 : 14,
-            height: isHovering ? 44 : 14,
-            duration: 0.25,
-            ease: 'power3.out',
-            backgroundColor: isHovering
-                ? 'rgba(200, 255, 0, 0.12)'
-                : 'rgba(255, 255, 255, 1)',
-            borderWidth: isHovering ? 1 : 0,
-            borderColor: isHovering
-                ? 'rgba(200, 255, 0, 0.5)'
-                : 'transparent',
-        });
+        if (isHovering) {
+            cursor.style.mixBlendMode = 'normal';
+            gsap.to(cursor, {
+                width: 44,
+                height: 44,
+                backgroundColor: 'rgba(0,0,0,0)',
+                borderWidth: 1.5,
+                borderColor: 'rgba(200, 255, 0, 0.9)',
+                duration: 0.25,
+                ease: 'power3.out',
+            });
+        } else {
+            cursor.style.mixBlendMode = 'difference';
+            gsap.to(cursor, {
+                width: 14,
+                height: 14,
+                backgroundColor: 'rgba(255, 255, 255, 1)',
+                borderWidth: 0,
+                borderColor: 'transparent',
+                duration: 0.25,
+                ease: 'power3.out',
+            });
+        }
     }, [isHovering, isClicked]);
 
     return (
@@ -105,6 +115,7 @@ export default function CustomCursor() {
                 height: 14,
                 background: '#fff',
                 zIndex: 99999,
+                mixBlendMode: 'difference',
             }}
         />
     );

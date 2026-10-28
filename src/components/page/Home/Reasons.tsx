@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Target, Users, Shield, Award } from 'lucide-react';
 import MagneticButton from '@/components/common/MagneticButton';
+import SectionHeader from '@/components/common/SectionHeader';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -121,17 +122,17 @@ function ReasonItem({
 
     return (
         <div ref={itemRef} className="flex flex-col gap-4 group">
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4 md:gap-6">
                 <div
                     ref={iconRef}
-                    className="w-14 h-14 rounded-full bg-surface-2 flex items-center justify-center text-accent"
+                    className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-surface-2 flex items-center justify-center text-accent"
                 >
                     {icon}
                 </div>
 
                 <div className="flex flex-col">
-                    <h4 className="font-display text-xl text-white">{title}</h4>
-                    <p className="font-sans text-sm text-muted">{subtitle}</p>
+                    <h4 className="font-display text-base md:text-xl text-white">{title}</h4>
+                    <p className="font-sans text-sm md:text-base text-white/50">{subtitle}</p>
                 </div>
 
                 <span className="ml-auto font-mono text-accent text-lg">{value}%</span>
@@ -220,11 +221,11 @@ export default function Reasons() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="bg-surface py-20">
-            <div className="px-[clamp(16px,32px,40px)] max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center overflow-hidden">
+        <section ref={sectionRef} className="bg-surface py-16 md:py-24">
+            <div className="px-4 min-[400px]:px-0 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16 items-center overflow-hidden">
                 {/* Left Column */}
-                <div className="lg:col-span-5 relative">
-                    <div className="reasons-image relative rounded-3xl overflow-hidden aspect-3/4">
+                <div className="order-2 lg:order-1 lg:col-span-5 relative">
+                    <div className="reasons-image relative rounded-xl md:rounded-3xl overflow-hidden aspect-3/4 ml-2 md:ml-8">
                         <img
                             src="https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&q=80&w=800"
                             alt="Trainer"
@@ -235,8 +236,8 @@ export default function Reasons() {
                     </div>
 
                     {/* Floating Badge */}
-                    <div className="experience-badge absolute -bottom-8 -left-8 glass p-8 rounded-2xl flex flex-col items-start gap-1">
-                        <span className="font-display text-5xl text-accent">10+</span>
+                    <div className="experience-badge absolute bottom-0 md:-bottom-8 left-0 glass p-3 md:p-8 rounded-lg md:rounded-2xl flex flex-col items-start gap-1">
+                        <span className="font-display text-3xl md:text-5xl text-accent">10+</span>
                         <span className="font-sans text-[11px] tracking-widest text-muted uppercase">
                             Years Experience
                         </span>
@@ -244,21 +245,16 @@ export default function Reasons() {
                 </div>
 
                 {/* Right Column */}
-                <div className="lg:col-span-7 flex flex-col items-start gap-10">
+                <div className="order-1 lg:order-2 lg:col-span-7 flex flex-col items-start gap-10">
                     <div className="flex flex-col gap-6">
-                        <div className="reasons-content glass px-4 py-1 rounded-full text-[12px] tracking-[0.15em] font-sans text-muted border-white/10 self-start uppercase">
-                            WHY CHOOSE US
-                        </div>
+                        <SectionHeader
+                            label="WHY CHOOSE US"
+                            heading="ENGINEERED FOR RESULTS."
+                            accentWord="RESULTS."
+                            animationClass="reasons-content"
+                        />
 
-                        <h2 className="reasons-content text-section leading-none">
-                            ENGINEERED FOR
-                            <br />
-                            <span className="text-accent underline underline-offset-8 decoration-accent/30">
-                                RESULTS.
-                            </span>
-                        </h2>
-
-                        <p className="reasons-content text-muted font-sans text-lg max-w-xl">
+                        <p className="reasons-content text-white/60 font-sans text-lg max-w-xl">
                             We don't just provide a gym; we provide a high-performance
                             ecosystem designed to optimize every aspect of your physical potential.
                         </p>
@@ -276,11 +272,11 @@ export default function Reasons() {
                         ))}
                     </div>
 
-                    <div className="reasons-content flex flex-col items-start gap-4">
-                        <MagneticButton className="px-10 py-5 text-xl">
+                    <div className="reasons-content flex flex-col md:items-start items-center gap-4">
+                        <MagneticButton>
                             START YOUR JOURNEY
                         </MagneticButton>
-                        <span className="font-sans text-[12px] text-muted tracking-widest uppercase">
+                        <span className="font-sans text-[12px] text-white/50 tracking-widest uppercase">
                             No contract · Cancel anytime
                         </span>
                     </div>

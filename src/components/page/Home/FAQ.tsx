@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import SectionHeader from '@/components/common/SectionHeader';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -71,34 +72,40 @@ export default function FAQ() {
     useEffect(() => {
         if (!sectionRef.current) return;
 
-        const ctx = gsap.context(() => {
-            gsap.from('.faq-left', {
-                opacity: 0,
-                x: -40,
-                duration: 1,
-                ease: 'power4.out',
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: 'top 80%',
-                    once: true,
-                },
+        const section = sectionRef.current;
+
+        const timer = setTimeout(() => {
+            const ctx = gsap.context(() => {
+                gsap.from('.faq-left', {
+                    opacity: 0,
+                    x: -40,
+                    duration: 1,
+                    ease: 'power4.out',
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 80%',
+                        once: true,
+                    },
+                });
+
+                gsap.from('.faq-item', {
+                    opacity: 0,
+                    y: 24,
+                    stagger: 0.06,
+                    duration: 0.7,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: section.querySelector('.faq-right'),
+                        start: 'top 85%',
+                        once: true,
+                    },
+                });
             });
 
-            gsap.from('.faq-item', {
-                opacity: 0,
-                y: 24,
-                stagger: 0.06,
-                duration: 0.7,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: '.faq-right',
-                    start: 'top 85%',
-                    once: true,
-                },
-            });
-        }, sectionRef.current);
+            return () => ctx.revert();
+        }, 0);
 
-        return () => ctx.revert();
+        return () => clearTimeout(timer);
     }, []);
 
     const toggle = (i: number) => {
@@ -169,17 +176,14 @@ export default function FAQ() {
 
                         <div className="relative z-10 flex flex-col gap-6">
 
-                            <div className="glass px-4 py-1 rounded-full text-[12px] tracking-[0.15em] font-sans text-muted border-white/10 uppercase self-start">
-                                FREQUENTLY ASKED
-                            </div>
+                            <SectionHeader
+                                label="FREQUENTLY ASKED"
+                                heading={"GOT\nQUESTIONS?"}
+                                accentWord="QUESTIONS?"
+                                animationClass="your-anim-class"
+                            />
 
-                            <h2 className="text-section leading-none">
-                                GOT
-                                <br />
-                                QUESTIONS?
-                            </h2>
-
-                            <p className="text-muted font-sans text-lg max-w-sm">
+                            <p className="text-white/50 font-sans text-lg max-w-sm">
                                 Everything you need to know about starting your
                                 fitness journey at GymForge.
                             </p>
@@ -238,7 +242,7 @@ export default function FAQ() {
                                 className="overflow-hidden h-0 opacity-0 will-change-transform"
                             >
                                 <div className="pb-8 pr-12">
-                                    <p className="text-muted font-sans text-lg leading-relaxed">
+                                    <p className="text-white/50 font-sans text-lg leading-relaxed">
                                         {faq.answer}
                                     </p>
                                 </div>

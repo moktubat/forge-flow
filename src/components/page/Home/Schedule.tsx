@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Timer } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import SectionHeader from '@/components/common/SectionHeader';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -237,18 +238,17 @@ export default function Schedule() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="py-20 px-[clamp(16px,5vw,80px)] overflow-hidden">
+        <section ref={sectionRef} className="py-16 md:py-24 px-[clamp(16px,5vw,80px)] overflow-hidden">
             <div className="max-w-7xl mx-auto">
 
                 {/* Header */}
-                <div className="schedule-header mb-12">
-                    <div className="glass px-4 py-1 rounded-full text-[12px] tracking-[0.15em] font-sans text-muted border-white/10 uppercase self-start inline-flex mb-6">
-                        CLASS SCHEDULE
-                    </div>
-                    <h2 className="text-section leading-none">
-                        WEEKLY<br />
-                        <span className="text-muted">SCHEDULE.</span>
-                    </h2>
+                <div className="schedule-header mb-6 md:mb-12">
+                    <SectionHeader
+                        label="CLASS SCHEDULE"
+                        heading={"WEEKLY\nSCHEDULE."}
+                        accentWord="SCHEDULE."
+                        animationClass="your-anim-class"
+                    />
                 </div>
 
                 {/* Day Tabs */}
@@ -259,7 +259,7 @@ export default function Schedule() {
                             onClick={() => changeDay(day)}
                             className={cn(
                                 'relative px-8 py-6 font-display text-lg tracking-[0.2em] transition-colors whitespace-nowrap',
-                                activeDay === day ? 'text-accent' : 'text-muted hover:text-white'
+                                activeDay === day ? 'text-accent' : 'text-white/50 hover:text-white'
                             )}
                         >
                             {day}
@@ -291,7 +291,7 @@ export default function Schedule() {
 
                 {/* Footer */}
                 <div className="mt-6 flex items-center justify-between">
-                    <div className="flex items-center gap-6 text-[11px] font-sans tracking-widest text-muted">
+                    <div className="flex items-center gap-6 text-[11px] font-sans tracking-widest text-white/50">
                         <div className="flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-accent/50 inline-block" />
                             BEGINNER
@@ -310,7 +310,7 @@ export default function Schedule() {
                         </div>
                     </div>
 
-                    <span className="font-sans text-[11px] text-muted tracking-widest">
+                    <span className="font-sans text-[11px] text-white/50 tracking-widest">
                         {rawSchedule[activeDay].length} CLASSES TODAY
                     </span>
                 </div>

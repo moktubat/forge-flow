@@ -1,5 +1,11 @@
 "use client";
-import { useState, useRef, useEffect, type MouseEvent, type TouchEvent } from 'react';
+import {
+    useState,
+    useRef,
+    useEffect,
+    type MouseEvent as ReactMouseEvent,
+    type TouchEvent as ReactTouchEvent,
+} from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { cn } from '@/lib/utils';
@@ -138,16 +144,16 @@ function ComparisonCard({
         return Math.min(max_pos, Math.max(min_pos, pos));
     };
 
-    const handleMove = (e: MouseEvent | TouchEvent) => {
+    // ── JSX handlers: keep React types ──────────────────────────────
+    const handleMove = (e: ReactMouseEvent | ReactTouchEvent) => {
         if (!cardRef.current) return;
-
         const container = cardRef.current.getBoundingClientRect();
-        const clientX = 'touches' in e ? e.touches[0].clientX : (e as MouseEvent).clientX;
+        const clientX = 'touches' in e ? e.touches[0].clientX : (e as ReactMouseEvent).clientX;
         const pos = calculatePosition(clientX, container);
         setSliderPos(pos);
     };
 
-    const handleStart = (e: MouseEvent | TouchEvent) => {
+    const handleStart = (e: ReactMouseEvent | ReactTouchEvent) => {
         e.preventDefault();
         setIsDragging(true);
         handleMove(e);
@@ -157,14 +163,14 @@ function ComparisonCard({
         setIsDragging(false);
     };
 
-    // Global mouse/touch listeners for smooth dragging outside card bounds
+    // ── Window listeners: use NATIVE DOM types ──────────────────────
     useEffect(() => {
         if (!isDragging) return;
 
-        const onMove = (e: MouseEvent | TouchEvent) => {
+        const onMove = (e: MouseEvent | TouchEvent) => {   // ← native DOM types now
             if (!cardRef.current) return;
             const container = cardRef.current.getBoundingClientRect();
-            const clientX = 'touches' in e ? (e as TouchEvent).touches[0].clientX : (e as MouseEvent).clientX;
+            const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
             const pos = calculatePosition(clientX, container);
             setSliderPos(pos);
         };

@@ -165,11 +165,9 @@ export default function Schedule() {
     const [isAnimating, setIsAnimating] = useState(false);
     const rowsRef = useRef<HTMLDivElement | null>(null);
     const sectionRef = useRef<HTMLElement | null>(null);
-    const activeDayRef = useRef(activeDay);
-    activeDayRef.current = activeDay;
 
     const changeDay = (day: string) => {
-        if (day === activeDayRef.current || isAnimating) return;
+        if (day === activeDay || isAnimating) return;
 
         const rows = rowsRef.current;
         if (!rows) return;
